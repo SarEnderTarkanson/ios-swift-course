@@ -9,83 +9,93 @@ import SwiftUI
 
 struct ContentView: View {
     @State var showExchangeInfo = false
+    @State var leftAmount = ""
+    @State var rightAmount = ""
     var body: some View {
-        ZStack{
+        ZStack {
             // Background Image
             Image(.background)
                 .resizable()
                 .ignoresSafeArea(.all)
-            VStack{
+            VStack {
                 Image(.prancingpony)
                     .resizable()
                     .scaledToFit()
                     .frame(height: 200)
                 
-                    Text("Currency Exchange")
+                Text("Currency Exchange")
                     .font(.largeTitle)
                     .foregroundStyle(.white)
-                    
-                    //Conversion Section
                 
-                    HStack{
-                        //Left conversion section
-                        VStack{
+                //Conversion Section
+                
+                HStack {
+                    //Left conversion section
+                    VStack {
                         //Currency
-                            HStack{
-                                Image(.silverpiece)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height: 33)
-                             
-                                //Currency text
-                                Text("Silver Piece")
-                                    .font(.headline)
-                                    .foregroundStyle(.white)
-                            }
-                        Text("Text Field")
-                        }
-                        Image(systemName: "equal")
-                            .font(.largeTitle)
-                            .foregroundStyle(.white)
-                            .symbolEffect(.pulse)
-                       
-                        //Right conversion section
-                        VStack{
-                            //Currency
-                            HStack{
-                                Text("Gold Piece")
-                                    .font(.headline)
-                                    .foregroundStyle(.white)
-                                Image(.goldpiece)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height:33)
-                                    
-                            }
-                            Text("Text field")
-                        }
-                    }
-                
-                    Spacer()
-                
-                    HStack {
-                        Spacer()
-Button{
-                            showExchangeInfo.toggle()
-                        } label: {
-                            Image(systemName: "info.circle.fill")
-                                .font(.largeTitle)
+                        HStack {
+                            Image(.silverpiece)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 33)
+                            
+                            //Currency text
+                            Text("Silver Piece")
+                                .font(.headline)
                                 .foregroundStyle(.white)
                         }
-                        .padding(.trailing)
+                        .padding(.bottom, -5)
+                        //Text Field
+                        TextField("Amount", text: $leftAmount)
+                            .textFieldStyle(.roundedBorder)
                     }
+                    Image(systemName: "equal")
+                        .font(.largeTitle)
+                        .foregroundStyle(.white)
+                        .symbolEffect(.pulse)
+                    
+                    //Right conversion section
+                    VStack {
+                        //Currency
+                        HStack {
+                            Text("Gold Piece")
+                                .font(.headline)
+                                .foregroundStyle(.white)
+                            Image(.goldpiece)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 33)
                             
                         }
-                    //.border(.blue)
+                        .padding(.bottom, -5)
+                        TextField("Amount", text: $rightAmount)
+                            .textFieldStyle(.roundedBorder)
+                            .multilineTextAlignment(.trailing)
                     }
+                }
+                .padding()
+                .background(.black.opacity(0.5))
+                .clipShape(.capsule)
+                
+                Spacer()
+                
+                HStack {
+                    Spacer()
+                    Button {
+                        showExchangeInfo.toggle()
+                    } label: {
+                        Image(systemName: "info.circle.fill")
+                            .font(.largeTitle)
+                            .foregroundStyle(.white)
+                    }
+                    .padding(.trailing)
+                }
+                
+            }
+            //.border(.blue)
         }
     }
-
+}
 
 #Preview {
     ContentView()
