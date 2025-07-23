@@ -67,17 +67,22 @@ struct ContentView: View {
                     }
                 
                     Spacer()
-                Button{
-                    showExchangeInfo = true
-                } label: {
-                    Image(systemName: "info.circle.fill")
-                    .font(.largeTitle)
-                    .foregroundStyle(.white)
-                }
-                    
-                }
-            //.border(.blue)
-            }
+                
+                    HStack {
+                        Spacer()
+Button{
+                            showExchangeInfo.toggle()
+                        } label: {
+                            Image(systemName: "info.circle.fill")
+                                .font(.largeTitle)
+                                .foregroundStyle(.white)
+                        }
+                        .padding(.trailing)
+                    }
+                            
+                        }
+                    //.border(.blue)
+                    }
         }
     }
 
