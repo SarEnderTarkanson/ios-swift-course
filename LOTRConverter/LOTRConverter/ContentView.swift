@@ -22,13 +22,13 @@ struct ContentView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(height: 200)
-                
+
                 Text("Currency Exchange")
                     .font(.largeTitle)
                     .foregroundStyle(.white)
-                
+
                 //Conversion Section
-                
+
                 HStack {
                     //Left conversion section
                     VStack {
@@ -38,7 +38,7 @@ struct ContentView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 33)
-                            
+
                             //Currency text
                             Text("Silver Piece")
                                 .font(.headline)
@@ -53,7 +53,7 @@ struct ContentView: View {
                         .font(.largeTitle)
                         .foregroundStyle(.white)
                         .symbolEffect(.pulse)
-                    
+
                     //Right conversion section
                     VStack {
                         //Currency
@@ -65,7 +65,7 @@ struct ContentView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 33)
-                            
+
                         }
                         .padding(.bottom, -5)
                         TextField("Amount", text: $rightAmount)
@@ -76,9 +76,9 @@ struct ContentView: View {
                 .padding()
                 .background(.black.opacity(0.5))
                 .clipShape(.capsule)
-                
+
                 Spacer()
-                
+
                 HStack {
                     Spacer()
                     Button {
@@ -89,8 +89,11 @@ struct ContentView: View {
                             .foregroundStyle(.white)
                     }
                     .padding(.trailing)
+                    .sheet(isPresented: $showExchangeInfo) {
+                        ExchangeInfo()
+                    }
                 }
-                
+
             }
             //.border(.blue)
         }
