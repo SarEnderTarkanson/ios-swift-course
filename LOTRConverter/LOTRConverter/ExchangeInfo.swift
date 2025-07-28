@@ -57,19 +57,17 @@ struct ExchangeInfo: View {
                 Button("Done") {
                     dismiss()
                 }
-                
 
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(.brown.mix(with: .black, by: 0.2))
-                .font(.largeTitle)
-                .padding()
-                .foregroundStyle(.white)
             }
-            .foregroundStyle(.black)
+            .buttonStyle(.borderedProminent)
+            .tint(.brown.mix(with: .black, by: 0.2))
+            .font(.largeTitle)
+            .padding()
+            .foregroundStyle(.white)
         }
+        .foregroundStyle(.black)
     }
-
+}
 
 #Preview {
     ExchangeInfo()
