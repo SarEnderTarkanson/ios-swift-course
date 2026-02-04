@@ -7,61 +7,31 @@
 
 import SwiftUI
 
-struct SelectCurrency: View {
-    @Environment(\.dismiss) var dismiss
+struct CurrencyIcon: View {
+    let currencyImage: ImageResource
+    let currencyName: String
+    
     var body: some View {
-        ZStack {
-            //Parchment Background Image
-            Image(.parchment)
+        //Currency Icons
+        ZStack(alignment: .bottom) {
+            //currency image
+            Image(currencyImage)
                 .resizable()
-                .ignoresSafeArea()
-                .background(.brown)
-            VStack {
-                //Text
-                Text("Select the currency you are starting with")
-                    .fontWeight(.bold)
-                
-                //Currency Icons
-                ZStack(alignment: .bottom) {
-                    //currency image
-                    Image(.copperpenny)
-                        .resizable()
-                        .scaledToFit()
-                    //currency name
-                    Text("Copper Penny")
-                        .padding(3)
-                        .font(.caption)
-                        .frame(maxWidth: .infinity)
-                        .background(.brown.opacity(0.75))
-                }
+                .scaledToFit()
+            //currency name
+            Text(currencyName)
                 .padding(3)
-                .frame(width: 100, height: 100)
-                .background(.brown)
-                .clipShape(.rect(cornerRadius: 25))
-                
-                //Text
-                Text("Select the currency you would like to convert to:")
-                    .fontWeight(.bold)
-                
-                //Currency Icons
-                
-                
-                //Done Button
-                Button("Done"){
-                    dismiss()
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(.brown.mix(with: .black, by: 0.2))
-                .font(.largeTitle)
-                .padding()
-                .foregroundStyle(.white)
-            }
-            .padding()
-            .multilineTextAlignment(.center)
+                .font(.caption)
+                .frame(maxWidth: .infinity)
+                .background(.brown.opacity(0.75))
         }
+        .padding(3)
+        .frame(width: 100, height: 100)
+        .background(.brown)
+        .clipShape(.rect(cornerRadius: 25))
     }
 }
 
 #Preview {
-    SelectCurrency()
+    CurrencyIcon(currencyImage: .goldpiece, currencyName: "Gold Piece")
 }
