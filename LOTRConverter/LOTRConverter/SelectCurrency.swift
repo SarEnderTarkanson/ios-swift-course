@@ -22,7 +22,9 @@ struct SelectCurrency: View {
                     .fontWeight(.bold)
                 
                 //Currency Icons
-                CurrencyIcon(currencyImage: .copperpenny, currencyName: "Copper Penny")
+                LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
+                    
+                }
                 
                 //Text
                 Text("Select the currency you would like to convert to:")
