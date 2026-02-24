@@ -18,7 +18,7 @@ struct SelectCurrency: View {
                 .background(.brown)
             VStack {
                 //Text
-                Text("Select the currency you are starting with")
+                Text("Select the currency you are starting with: \(Currency.copperPenny.rawValue)")
                     .fontWeight(.bold)
                 
                 //Currency Icons
