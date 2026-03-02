@@ -18,13 +18,18 @@ struct SelectCurrency: View {
                 .background(.brown)
             VStack {
                 //Text
-                Text("Select the currency you are starting with: \(Currency.copperPenny.rawValue)")
-                    .fontWeight(.bold)
+                Text(
+                    "Select the currency you are starting with: "
+                )
+                .fontWeight(.bold)
                 
                 //Currency Icons
                 LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
-                    ForEach(0..<5) { loop in
-                        CurrencyIcon(currencyImage: .copperpenny, currencyName: "Copper Penny")
+                    ForEach(Currency.allCases) { currency in
+                        CurrencyIcon(
+                            currencyImage: currency.image,
+                            currencyName: currency.name
+                        )
                     }
                 }
                 
@@ -34,9 +39,8 @@ struct SelectCurrency: View {
                 
                 //Currency Icons
                 
-                
                 //Done Button
-                Button("Done"){
+                Button("Done") {
                     dismiss()
                 }
                 .buttonStyle(.borderedProminent)
