@@ -8,48 +8,48 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+
     @State var showExchangeInfo = false
     @State var showSelectCurrency = false
     @State var leftAmount = ""
     @State var rightAmount = ""
-    
+
     @FocusState var leftTyping
     @FocusState var rightTyping
-    
+
     @State var leftCurrency: Currency = .silverPiece
     @State var rightCurrency: Currency = .goldPiece
-    
+
     var body: some View {
-        ZStack{
+        ZStack {
             //Background Image
             Image(.background)
                 .resizable()
                 .ignoresSafeArea()
-            VStack{
+            VStack {
                 //Prancing Pony Image View
                 Image(.prancingpony)
                     .resizable()
                     .scaledToFit()
                     .frame(height: 200)
-                    
+
                 //Currency exchange text
                 Text("Currency Exchange")
                     .font(.largeTitle)
                     .foregroundStyle(.white)
-                    
+
                 //Conversion section
                 HStack {
                     //Left conversion section
                     VStack {
                         //Currency
-                        HStack{
+                        HStack {
                             //Currency Image
                             Image(leftCurrency.image)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 33)
-                            
+
                             //Currency Text
                             Text(leftCurrency.name)
                                 .font(.headline)
@@ -63,22 +63,17 @@ struct ContentView: View {
                         TextField("Amount", text: $leftAmount)
                             .textFieldStyle(.roundedBorder)
                             .focused($leftTyping)
-                            .onChange(of: leftAmount) {
-                                if leftTyping {
-                                    rightAmount = leftCurrency.convert(leftAmount, to: rightCurrency)
-                                }
-                            }
                     }
                     //Equal sign
                     Image(systemName: "equal")
                         .font(.largeTitle)
                         .foregroundStyle(.white)
                         .symbolEffect(.pulse)
-                    
+
                     //Right conversion section
                     VStack {
                         //Currency
-                        HStack{
+                        HStack {
                             //Currency Text
                             Text(rightCurrency.name)
                                 .font(.headline)
@@ -94,21 +89,17 @@ struct ContentView: View {
                             showSelectCurrency.toggle()
                         }
                         //Text field
-                        TextField("Amount", text:$rightAmount)
+                        TextField("Amount", text: $rightAmount)
                             .textFieldStyle(.roundedBorder)
                             .multilineTextAlignment(.trailing)
                             .focused($rightTyping)
-                            .onChange(of: rightAmount) {
-                                if rightTyping {
-                                    leftAmount = rightCurrency.convert(rightAmount, to: leftCurrency)
-                                }
-                            }
                     }
                 }
                 .padding()
                 .background(.black.opacity(0.5))
                 .clipShape(.capsule)
-                
+                .keyboardType(.decimalPad)
+                    
                 Spacer()
                 //Info Button
                 HStack {
@@ -122,17 +113,46 @@ struct ContentView: View {
                     }
                     .padding(.trailing)
                 }
-                
-                    
+
             }
-//            .border(.blue)
+            //            .border(.blue)
+        }
+        .onChange(of: leftAmount) {
+            if leftTyping {
+                rightAmount = leftCurrency.convert(
+                    leftAmount,
+                    to: rightCurrency
+                )
+            }
+        }
+        .onChange(of: rightAmount) {
+            if rightTyping {
+                leftAmount = rightCurrency.convert(
+                    rightAmount,
+                    to: leftCurrency
+                )
+            }
+        }
+        .onChange(of: leftCurrency) {
+            leftAmount = rightCurrency.convert(
+                rightAmount,
+                to: leftCurrency
+            )
+        }
+        .onChange(of: rightCurrency) {
+            rightAmount = leftCurrency.convert(
+                leftAmount,
+                to: rightCurrency
+            )
         }
         .sheet(isPresented: $showExchangeInfo) {
             ExchangeInfo()
         }
         .sheet(isPresented: $showSelectCurrency) {
-            SelectCurrency(topCurrency: $leftCurrency,
-            bottomCurrency: $rightCurrency)
+            SelectCurrency(
+                topCurrency: $leftCurrency,
+                bottomCurrency: $rightCurrency
+            )
         }
     }
 }
